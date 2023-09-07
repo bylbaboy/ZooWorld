@@ -5,7 +5,7 @@ namespace Modules.Animals
 {
     public sealed class LinearMovementBehaviour : MovementBehaviour
     {
-        public LinearMovementBehaviour(Transform objectToMove, ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider) : base(objectToMove, speedProvider, directionProvider)
+        public LinearMovementBehaviour(ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider) : base(speedProvider, directionProvider)
         {
             UniTaskAsyncEnumerable.EveryUpdate().Subscribe(_ => Move());
         }

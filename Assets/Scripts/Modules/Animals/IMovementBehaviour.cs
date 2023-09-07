@@ -1,8 +1,9 @@
 ﻿using Common;
+using UnityEngine;
 
 namespace Modules.Animals
 {
-    public interface IMovementBehaviour : IDisposable
+    public interface IMovementBehaviour : IInitializable<Transform>, IDisposable
     {
         
     }

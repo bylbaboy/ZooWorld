@@ -7,6 +7,10 @@
         public ConstantSpeedProvider(float speed) =>
             _speed = speed;
 
+        public void Initialize()
+        {
+        }
+
         public float GetSpeed() =>
             _speed;
 

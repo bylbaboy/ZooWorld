@@ -5,7 +5,7 @@ namespace Modules.Animals
 {
     public abstract class MovementBehaviour : IMovementBehaviour
     {
-        private readonly Transform _objectToMove;
+        private Transform _objectToMove;
         private readonly ISpeedProvider _speedProvider;
         private readonly IMovementDirectionProvider _directionProvider;
 
@@ -13,11 +13,17 @@ namespace Modules.Animals
         protected ISpeedProvider SpeedProvider => _speedProvider;
         protected IMovementDirectionProvider DirectionProvider => _directionProvider;
 
-        protected MovementBehaviour(Transform objectToMove, ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider)
+        protected MovementBehaviour(ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider)
         {
-            _objectToMove = objectToMove;
             _speedProvider = speedProvider;
             _directionProvider = directionProvider;
+        }
+
+        public void Initialize(Transform objectToMove)
+        {
+            _objectToMove = objectToMove;
+            _speedProvider.Initialize();
+            _directionProvider.Initialize();
         }
 
         public void Dispose()

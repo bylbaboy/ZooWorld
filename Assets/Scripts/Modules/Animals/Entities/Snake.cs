@@ -6,7 +6,6 @@
             "Snake", 
             new ResourcesPrefabProvider("Snake"), 
             new LinearMovementBehaviour(
-                null, 
                 new ConstantSpeedProvider(4), 
                 new IntervalBased2DMovementDirectionProvider(
                     new DeltaBoundsSetting<float>(15, 45), 

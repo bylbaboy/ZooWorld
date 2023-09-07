@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Common;
 using Cysharp.Threading.Tasks.Linq;
 using Modules.Animals;
 using Modules.Animals.Entities;
 using Services;
 using UnityEngine;
+using IDisposable = System.IDisposable;
 using Object = UnityEngine.Object;
 
 namespace Modules
@@ -32,9 +34,14 @@ namespace Modules
 
         private void Spawn()
         {
-            var animal = new Snake();
+            var animal = new Snake(); //TODO for test, need to get animal from list and clone it
             var prefab = animal.GetPrefab();
             var obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+
+            if (animal is IInitializable<Transform> initializable)
+            {
+                initializable.Initialize(obj.transform);
+            }
             
             WaitForSpawn();
         }

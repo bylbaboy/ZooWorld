@@ -13,6 +13,14 @@ namespace Modules.Animals
         private IDisposable _waitingForDirectionChange;
         private System.Random _random;
 
+        public void Initialize()
+        {
+            _random = new System.Random(Random.Range(0, 1000));
+            _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
+            
+            WaitForDirectionChange();
+        }
+
         public Vector3 GetDirection() =>
             _currentDirection;
 
@@ -20,11 +28,6 @@ namespace Modules.Animals
         {
             _changeBounds = changeBounds;
             _changeInterval = changeInterval;
-
-            _random = new System.Random(Random.Range(0, 1000));
-            _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
-
-            WaitForDirectionChange();
         }
 
         private void WaitForDirectionChange() =>
@@ -47,7 +50,7 @@ namespace Modules.Animals
 
         public void Dispose()
         {
-            _waitingForDirectionChange.Dispose();
+            _waitingForDirectionChange?.Dispose();
         }
     }
 }
