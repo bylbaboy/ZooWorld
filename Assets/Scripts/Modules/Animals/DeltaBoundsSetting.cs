@@ -2,20 +2,20 @@
 
 namespace Modules.Animals
 {
-    public sealed class DeltaBoundsSetting : IDeltaBoundsSetting
+    public sealed class DeltaBoundsSetting<T> : IDeltaBoundsSetting<T> where T : struct, IComparable<T>
     {
-        private float _minDelta;
-        private float _maxDelta;
+        private T _minDelta;
+        private T _maxDelta;
 
-        public float MinDelta => _minDelta;
-        public float MaxDelta => _maxDelta;
+        public T MinDelta => _minDelta;
+        public T MaxDelta => _maxDelta;
 
-        public DeltaBoundsSetting(float minDelta, float maxDelta)
+        public DeltaBoundsSetting(T minDelta, T maxDelta)
         {
             _minDelta = minDelta;
             _maxDelta = maxDelta;
 
-            if (_maxDelta < _minDelta)
+            if (_minDelta.CompareTo(_maxDelta) > 0)
             {
                 throw new Exception("Incorrect delta setting");
             }

@@ -9,5 +9,9 @@
 
         public float GetSpeed() =>
             _speed;
+
+        public void Dispose()
+        {
+        }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace Modules.Animals
+﻿using System;
+
+namespace Modules.Animals
 {
-    public interface IIntervalProvider
+    public interface IIntervalProvider<T> where T : struct, IComparable<T>
     {
-        float GetNextInterval();
+        T GetNextInterval();
     }
 }

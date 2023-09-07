@@ -1,25 +1,19 @@
 ﻿using Cysharp.Threading.Tasks.Linq;
+using UnityEngine;
 
 namespace Modules.Animals
 {
-    public sealed class LinearMovementBehaviour : IMovementBehaviour
+    public sealed class LinearMovementBehaviour : MovementBehaviour
     {
-        private float _speed;
-        private float _directionChangesCountPerMinute;
-        private IMovementDirectionPicker _directionPicker;
-
-        public LinearMovementBehaviour(float speed, float directionChangesCountPerMinute, IMovementDirectionPicker directionPicker)
+        public LinearMovementBehaviour(Transform objectToMove, ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider) : base(objectToMove, speedProvider, directionProvider)
         {
-            _speed = speed;
-            _directionChangesCountPerMinute = directionChangesCountPerMinute;
-            _directionPicker = directionPicker;
-            
-            UniTaskAsyncEnumerable.EveryUpdate().Subscribe(_ => UnityEngine.PlayerLoop.Update());
+            UniTaskAsyncEnumerable.EveryUpdate().Subscribe(_ => Move());
         }
 
-        public void Dispose()
+        private void Move()
         {
-            
+            var translation = DirectionProvider.GetDirection().normalized * SpeedProvider.GetSpeed() * Time.deltaTime;
+            ObjectToMove.Translate(translation);
         }
     }
 }

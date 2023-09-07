@@ -1,8 +1,10 @@
-﻿namespace Modules.Animals
+﻿using System;
+
+namespace Modules.Animals
 {
-    public interface IDeltaBoundsSetting
+    public interface IDeltaBoundsSetting<T> where T : struct, IComparable<T>
     {
-        public float MinDelta { get; }
-        public float MaxDelta { get; }
+        public T MinDelta { get; }
+        public T MaxDelta { get; }
     }
 }

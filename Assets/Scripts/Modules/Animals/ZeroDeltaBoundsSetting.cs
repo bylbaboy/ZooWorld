@@ -1,9 +1,9 @@
 ﻿namespace Modules.Animals
 {
-    public sealed class ZeroDeltaBoundsSetting : IDeltaBoundsSetting
+    public sealed class ZeroDeltaBoundsSetting : IDeltaBoundsSetting<int>
     {
-        private IDeltaBoundsSetting _delta = new DeltaBoundsSetting(0, 0);
-        public float MinDelta => _delta.MinDelta;
-        public float MaxDelta => _delta.MaxDelta;
+        private IDeltaBoundsSetting<int> _delta = new DeltaBoundsSetting<int>(0, 0);
+        public int MinDelta => _delta.MinDelta;
+        public int MaxDelta => _delta.MaxDelta;
     }
 }
