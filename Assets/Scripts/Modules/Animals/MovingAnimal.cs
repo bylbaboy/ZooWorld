@@ -1,6 +1,6 @@
 ﻿namespace Modules.Animals
 {
-    public sealed class MovingAnimal : Animal
+    public abstract class MovingAnimal : Animal
     {
         private readonly IMovementBehaviour _movementBehaviour;
         
