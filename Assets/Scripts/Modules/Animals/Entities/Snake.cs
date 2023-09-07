@@ -8,8 +8,8 @@
             new LinearMovementBehaviour(
                 new ConstantSpeedProvider(4), 
                 new IntervalBased2DMovementDirectionProvider(
-                    new DeltaBoundsSetting<float>(15, 45), 
-                    new RandomInBoundsIntervalProvider(new DeltaBoundsSetting<int>(1, 3)))
+                    new DeltaBoundsSetting<float>(30, 90), 
+                    new RandomInBoundsIntervalProvider(new DeltaBoundsSetting<int>(500, 1000)))
                 )
             )
         {

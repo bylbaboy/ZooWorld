@@ -16,6 +16,7 @@ namespace Modules
     public sealed class AnimalSpawnerModule : Module
     {
         private List<IAnimal> _animalsToSpawn;
+        private List<Animal> _spawnedAnimals = new();
         private IIntervalProvider<int> _intervalProvider;
         private IDisposable _spawning;
 
@@ -48,13 +49,18 @@ namespace Modules
 
         private void WaitForSpawn()
         {
-            _spawning = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, _intervalProvider.GetNextInterval()))
+            _spawning = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _intervalProvider.GetNextInterval()))
                 .Subscribe(_ => Spawn());
         }
 
         public override void Dispose()
         {
             _spawning.Dispose();
+
+            foreach (var animal in _spawnedAnimals)
+            {
+                animal.Dispose();
+            }
         }
     }
 }

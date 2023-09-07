@@ -24,6 +24,12 @@ namespace Modules.Animals
             _objectToMove = objectToMove;
             _speedProvider.Initialize();
             _directionProvider.Initialize();
+
+            OnInitialize();
+        }
+
+        protected virtual void OnInitialize()
+        {
         }
 
         public void Dispose()
@@ -34,7 +40,7 @@ namespace Modules.Animals
             OnDispose();
         }
 
-        protected void OnDispose()
+        protected virtual void OnDispose()
         {
             
         }

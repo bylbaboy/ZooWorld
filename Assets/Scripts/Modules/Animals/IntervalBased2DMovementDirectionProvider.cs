@@ -31,7 +31,7 @@ namespace Modules.Animals
         }
 
         private void WaitForDirectionChange() =>
-            _waitingForDirectionChange = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, _changeInterval.GetNextInterval())).Subscribe(_ => ChangeDirection());
+            _waitingForDirectionChange = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _changeInterval.GetNextInterval())).Subscribe(_ => ChangeDirection());
 
         private void ChangeDirection()
         {
