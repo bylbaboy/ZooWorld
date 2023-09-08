@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
-    public sealed class Animal : IAnimal
+    public abstract class Animal : IAnimal
     {
         private readonly string _name;
         private readonly IValuesProvider<int> _predationLevel;
         private readonly IPrefabProvider _prefabProvider;
 
-        public Animal(string name, IConstantValuesProvider<int> predationLevel, IPrefabProvider prefabProvider)
+        protected Animal(string name, IConstantValuesProvider<int> predationLevel, IPrefabProvider prefabProvider)
         {
             _name = name;
             _predationLevel = predationLevel;
@@ -25,7 +25,7 @@ namespace Modules.Animals
         public int GetPredationLevel() =>
             _predationLevel.GetNext();
 
-        public void Dispose()
+        public virtual void Dispose()
         {
         }
     }

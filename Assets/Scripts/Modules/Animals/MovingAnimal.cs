@@ -4,33 +4,21 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
-    public sealed class MovingAnimal : IAnimal, IInitializable<Transform>
+    public abstract class MovingAnimal : Animal, IInitializable<Transform>
     {
-        private readonly IAnimal _baseAnimal;
         private readonly IMovementBehaviour _movementBehaviour;
         
-        public void Dispose()
+        public override void Dispose()
         {
             _movementBehaviour.Dispose();
-            _baseAnimal.Dispose();
         }
-        
-        public MovingAnimal(string name, IConstantValuesProvider<int> predationLevel, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour)
+
+        protected MovingAnimal(string name, IConstantValuesProvider<int> predationLevel, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour) : base(name, predationLevel, prefabProvider)
         {
-            _baseAnimal = new Animal(name, predationLevel, prefabProvider);
             _movementBehaviour = movementBehaviour;
         }
 
         public void Initialize(Transform obj) =>
             _movementBehaviour.Initialize(obj);
-
-        public string GetName() =>
-            _baseAnimal.GetName();
-
-        public GameObject GetPrefab() =>
-            _baseAnimal.GetPrefab();
-
-        public int GetPredationLevel() =>
-            _baseAnimal.GetPredationLevel();
     }
 }
