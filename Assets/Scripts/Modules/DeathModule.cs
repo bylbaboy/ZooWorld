@@ -34,7 +34,7 @@ namespace Modules
             var success1 = _manager.TryGetAnimal(obj1, out var animal1);
             var success2 = _manager.TryGetAnimal(obj2, out var animal2);
 
-            if (success1 && success2 == false)
+            if (success1 == false || success2 == false)
             {
                 return;
             }
