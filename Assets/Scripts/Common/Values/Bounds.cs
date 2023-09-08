@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Parameters
+namespace Common.Values
 {
     public sealed class Bounds<T> : IBounds<T> where T : struct, IComparable<T>
     {

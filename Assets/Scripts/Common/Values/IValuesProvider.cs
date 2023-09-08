@@ -1,4 +1,4 @@
-﻿namespace Common.Parameters
+﻿namespace Common.Values
 {
     public interface IValuesProvider<T>
     {

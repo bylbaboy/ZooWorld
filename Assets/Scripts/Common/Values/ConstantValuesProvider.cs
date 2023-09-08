@@ -1,4 +1,4 @@
-﻿namespace Common.Parameters
+﻿namespace Common.Values
 {
     public sealed class ConstantValuesProvider<T> : IValuesProvider<T>
     {

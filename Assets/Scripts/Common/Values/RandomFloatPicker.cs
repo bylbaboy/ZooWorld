@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Common.Parameters
+namespace Common.Values
 {
     public sealed class RandomFloatPicker : IValuePicker<float>
     {

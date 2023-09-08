@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Parameters
+namespace Common.Values
 {
     public interface IValuePicker<T> where T : struct, IComparable<T>
     {

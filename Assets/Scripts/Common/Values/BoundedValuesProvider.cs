@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Parameters
+namespace Common.Values
 {
     public sealed class BoundedValuesProvider<T> : IValuesProvider<T> where T : struct, IComparable<T>
     {

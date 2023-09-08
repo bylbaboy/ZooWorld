@@ -1,5 +1,5 @@
 ﻿using Common;
-using Common.Parameters;
+using Common.Values;
 using UnityEngine;
 
 namespace Modules.Animals.Entities
