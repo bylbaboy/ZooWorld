@@ -12,6 +12,7 @@ namespace Modules.Animals.Entities
         {
             _baseAnimal = new MovingAnimal(
                 "Snake",
+                new BoundedValuesProvider<int>(new Bounds<int>(3, 5), new RandomIntPicker()),
                 new ResourcesPrefabProvider("Snake"),
                 new LinearMovementBehaviour(
                     new ConstantSpeedProvider(4),
@@ -31,6 +32,9 @@ namespace Modules.Animals.Entities
 
         public GameObject GetPrefab() =>
             _baseAnimal.GetPrefab();
+
+        public int GetPredationLevel() =>
+            _baseAnimal.GetPredationLevel();
 
         public void Initialize(Transform obj) =>
             _baseAnimal.Initialize(obj);

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Values;
 using UnityEngine;
 
 namespace Modules.Animals
@@ -14,9 +15,9 @@ namespace Modules.Animals
             _baseAnimal.Dispose();
         }
         
-        public MovingAnimal(string name, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour)
+        public MovingAnimal(string name, IValuesProvider<int> predationLevel, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour)
         {
-            _baseAnimal = new Animal(name, prefabProvider);
+            _baseAnimal = new Animal(name, predationLevel, prefabProvider);
             _movementBehaviour = movementBehaviour;
         }
 
@@ -28,5 +29,8 @@ namespace Modules.Animals
 
         public GameObject GetPrefab() =>
             _baseAnimal.GetPrefab();
+
+        public int GetPredationLevel() =>
+            _baseAnimal.GetPredationLevel();
     }
 }

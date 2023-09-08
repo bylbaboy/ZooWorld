@@ -12,6 +12,7 @@ namespace Modules.Animals.Entities
         {
             _baseAnimal = new MovingAnimal(
                 "Frog",
+                new ConstantValuesProvider<int>(0),
                 new ResourcesPrefabProvider("Frog"),
                 new JumpMovementBehaviour(
                     new ConstantSpeedProvider(6),
@@ -32,6 +33,9 @@ namespace Modules.Animals.Entities
 
         public GameObject GetPrefab() =>
             _baseAnimal.GetPrefab();
+
+        public int GetPredationLevel() =>
+            _baseAnimal.GetPredationLevel();
 
         public void Initialize(Transform obj) =>
             _baseAnimal.Initialize(obj);

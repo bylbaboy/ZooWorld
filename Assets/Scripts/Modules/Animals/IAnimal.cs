@@ -7,5 +7,7 @@ namespace Modules.Animals
     {
         string GetName();
         GameObject GetPrefab();
+
+        int GetPredationLevel();
     }
 }
