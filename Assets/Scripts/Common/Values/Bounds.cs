@@ -2,7 +2,7 @@
 
 namespace Common.Values
 {
-    public sealed class Bounds<T> : IBounds<T> where T : struct, IComparable<T>
+    public sealed class Bounds<T> : IBounds<T> where T : struct
     {
         private T _min;
         private T _max;

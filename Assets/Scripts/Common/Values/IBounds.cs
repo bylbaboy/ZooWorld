@@ -2,7 +2,7 @@
 
 namespace Common.Values
 {
-    public interface IBounds<T> where T : struct, IComparable<T>
+    public interface IBounds<T> where T : struct
     {
         public T Min { get; }
         public T Max{ get; }
