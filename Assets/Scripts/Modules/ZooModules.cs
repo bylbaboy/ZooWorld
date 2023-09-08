@@ -9,7 +9,7 @@ namespace Modules
         protected override List<IModule> GetModules() =>
             new()
             {
-                new AnimalSpawnerModule(new SnakeAnimalPicker(), new ConstantIntervalProvider(3000)),
+                new AnimalSpawnerModule(new MixedAnimalPicker(), new ConstantIntervalProvider(3000)),
             };
 
         protected override List<IService> GetServices() =>
