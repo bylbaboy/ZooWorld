@@ -15,7 +15,7 @@ namespace Modules.Animals
 
         public void Initialize()
         {
-            _random = new System.Random(Random.Range(0, 1000));
+            _random = new System.Random();
             _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
             
             WaitForDirectionChange();
