@@ -17,11 +17,13 @@ namespace Modules
         private IAnimalPicker _animalPicker;
         private IValuesProvider<int> _intervalsProvider;
         private IDisposable _spawning;
+        private Transform _parentObject;
 
         public AnimalSpawnerModule(IAnimalPicker animalPicker, IValuesProvider<int> intervalsProvider)
         {
             _animalPicker = animalPicker;
             _intervalsProvider = intervalsProvider;
+            _parentObject = new GameObject("AnimalsParent").transform;
         }
 
         public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
@@ -35,7 +37,7 @@ namespace Modules
         {
             var animal = _animalPicker.GetNext();
             var prefab = animal.GetPrefab();
-            var obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            var obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity, _parentObject);
 
             if (animal is IInitializable<Transform> initializable)
             {
