@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Common;
+using Common.Parameters;
 using Cysharp.Threading.Tasks.Linq;
 using Modules.Animals;
-using Modules.Animals.Entities;
 using Services;
 using UnityEngine;
 using IDisposable = System.IDisposable;
@@ -17,13 +17,13 @@ namespace Modules
     {
         private IAnimalPicker _animalPicker;
         private List<IAnimal> _spawnedAnimals = new();
-        private IIntervalProvider<int> _intervalProvider;
+        private IValuesProvider<int> _intervalsProvider;
         private IDisposable _spawning;
 
-        public AnimalSpawnerModule(IAnimalPicker animalPicker, IIntervalProvider<int> intervalProvider)
+        public AnimalSpawnerModule(IAnimalPicker animalPicker, IValuesProvider<int> intervalsProvider)
         {
             _animalPicker = animalPicker;
-            _intervalProvider = intervalProvider;
+            _intervalsProvider = intervalsProvider;
         }
 
         public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
@@ -51,7 +51,7 @@ namespace Modules
 
         private void WaitForSpawn()
         {
-            _spawning = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _intervalProvider.GetNextInterval()))
+            _spawning = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _intervalsProvider.GetNext()))
                 .Subscribe(_ => Spawn());
         }
 

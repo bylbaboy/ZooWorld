@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Common.Parameters;
 using Modules.Animals;
 using Services;
 
@@ -9,7 +10,7 @@ namespace Modules
         protected override List<IModule> GetModules() =>
             new()
             {
-                new AnimalSpawnerModule(new RandomAnimalPicker(), new ConstantIntervalProvider(3000)),
+                new AnimalSpawnerModule(new RandomAnimalPicker(), new ConstantValuesProvider<int>(3000)),
             };
 
         protected override List<IService> GetServices() =>

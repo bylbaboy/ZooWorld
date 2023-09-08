@@ -1,14 +1,14 @@
 ﻿using System;
+using Common.Parameters;
 using Cysharp.Threading.Tasks.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Modules.Animals
 {
     public sealed class IntervalBased2DMovementDirectionProvider : IMovementDirectionProvider
     {
-        private IDeltaBoundsSetting<float> _directionChangeDeltaInDegrees;
-        private IIntervalProvider<int> _directionChangeTimeInterval;
+        private readonly IValuesProvider<float> _directionChangeDeltaInDegrees;
+        private readonly IValuesProvider<int> _directionChangeTimeInterval;
         private Vector3 _currentDirection;
         private IDisposable _waitingForDirectionChange;
         private System.Random _random;
@@ -24,19 +24,18 @@ namespace Modules.Animals
         public Vector3 GetDirection() =>
             _currentDirection;
 
-        public IntervalBased2DMovementDirectionProvider(IDeltaBoundsSetting<float> directionChangeDeltaInDegrees, IIntervalProvider<int> directionChangeTimeInterval)
+        public IntervalBased2DMovementDirectionProvider(IValuesProvider<float> directionChangeDeltasProvider, IValuesProvider<int> directionChangeDelaysProvider)
         {
-            _directionChangeDeltaInDegrees = directionChangeDeltaInDegrees;
-            _directionChangeTimeInterval = directionChangeTimeInterval;
+            _directionChangeDeltaInDegrees = directionChangeDeltasProvider;
+            _directionChangeTimeInterval = directionChangeDelaysProvider;
         }
 
         private void WaitForDirectionChange() =>
-            _waitingForDirectionChange = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _directionChangeTimeInterval.GetNextInterval())).Subscribe(_ => ChangeDirection());
+            _waitingForDirectionChange = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _directionChangeTimeInterval.GetNext())).Subscribe(_ => ChangeDirection());
 
         private void ChangeDirection()
         {
-            var changeDelta = _directionChangeDeltaInDegrees.MinDelta +
-                              (_directionChangeDeltaInDegrees.MaxDelta - _directionChangeDeltaInDegrees.MinDelta) * (float)_random.NextDouble();
+            var changeDelta = _directionChangeDeltaInDegrees.GetNext();
 
             if (_random.Next(0, 2) == 1)
             {

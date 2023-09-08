@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Parameters;
 using UnityEngine;
 
 namespace Modules.Animals.Entities
@@ -15,8 +16,8 @@ namespace Modules.Animals.Entities
                 new LinearMovementBehaviour(
                     new ConstantSpeedProvider(4),
                     new IntervalBased2DMovementDirectionProvider(
-                        new DeltaBoundsSetting<float>(30, 90),
-                        new RandomInBoundsIntervalProvider(new DeltaBoundsSetting<int>(500, 1000))
+                        new BoundedValuesProvider<float>(new Bounds<float>(30, 90), new RandomFloatPicker()),
+                        new BoundedValuesProvider<int>(new Bounds<int>(500, 1000), new RandomIntPicker())
                     )
                 )
             );

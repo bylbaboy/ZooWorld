@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Parameters;
 using UnityEngine;
 
 namespace Modules.Animals.Entities
@@ -15,10 +16,10 @@ namespace Modules.Animals.Entities
                 new JumpMovementBehaviour(
                     new ConstantSpeedProvider(6),
                     new IntervalBased2DMovementDirectionProvider(
-                        new DeltaBoundsSetting<float>(45, 180),
-                        new RandomInBoundsIntervalProvider(new DeltaBoundsSetting<int>(1000, 4000))
+                        new BoundedValuesProvider<float>(new Bounds<float>(45, 180), new RandomFloatPicker()), 
+                        new BoundedValuesProvider<int>(new Bounds<int>(1000, 4000), new RandomIntPicker())
                     ),
-                    new RandomInBoundsIntervalProvider(new DeltaBoundsSetting<int>(1000, 2000))
+                    new BoundedValuesProvider<int>(new Bounds<int>(1000, 2000), new RandomIntPicker())
                 )
             );
         }

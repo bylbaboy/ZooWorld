@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Parameters;
 using Cysharp.Threading.Tasks.Linq;
 using UnityEngine;
 
@@ -6,15 +7,15 @@ namespace Modules.Animals
 {
     public sealed class JumpMovementBehaviour : MovementBehaviour
     {
-        private readonly IIntervalProvider<int> _jumpDelayTimeInterval;
+        private readonly IValuesProvider<int> _jumpDelaysProvider;
         private IDisposable _jumping;
 
         public JumpMovementBehaviour(
             ISpeedProvider speedProvider, 
             IMovementDirectionProvider directionProvider, 
-            IIntervalProvider<int> jumpDelayTimeInterval) : base(speedProvider, directionProvider)
+            IValuesProvider<int> jumpDelaysProvider) : base(speedProvider, directionProvider)
         {
-            _jumpDelayTimeInterval = jumpDelayTimeInterval;
+            _jumpDelaysProvider = jumpDelaysProvider;
         }
 
         protected override void OnInitialize()
@@ -37,7 +38,7 @@ namespace Modules.Animals
 
         private void WaitForJump()
         {
-            _jumping = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _jumpDelayTimeInterval.GetNextInterval()))
+            _jumping = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _jumpDelaysProvider.GetNext()))
                 .Subscribe(_ => Jump());
         }
 
