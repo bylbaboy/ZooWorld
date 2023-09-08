@@ -31,7 +31,9 @@ namespace Modules.Animals
             direction.y = 2;
             direction.Normalize();
 
-            rb.AddForce(direction * SpeedProvider.GetSpeed(), ForceMode.Impulse);
+            var correctedDirection = MovementCorrector.Correct(direction);
+
+            rb.AddForce(correctedDirection * SpeedProvider.GetSpeed(), ForceMode.Impulse);
 
             WaitForJump();
         }

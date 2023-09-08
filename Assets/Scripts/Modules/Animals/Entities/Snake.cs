@@ -20,7 +20,7 @@ namespace Modules.Animals.Entities
                         new BoundedValuesProvider<float>(new Bounds<float>(30, 90), new RandomFloatPicker()),
                         new BoundedValuesProvider<int>(new Bounds<int>(500, 1000), new RandomIntPicker())
                     )
-                )
+                ).SetCorrector(new ReturnToAreaMovementCorrector(Vector3.zero, 15))
             );
         }
 

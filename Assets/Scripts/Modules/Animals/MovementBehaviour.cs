@@ -8,10 +8,12 @@ namespace Modules.Animals
         private Transform _objectToMove;
         private readonly ISpeedProvider _speedProvider;
         private readonly IMovementDirectionProvider _directionProvider;
+        private IMovementCorrector _movementCorrector;
 
         protected Transform ObjectToMove => _objectToMove;
         protected ISpeedProvider SpeedProvider => _speedProvider;
         protected IMovementDirectionProvider DirectionProvider => _directionProvider;
+        protected IMovementCorrector MovementCorrector => _movementCorrector;
 
         protected MovementBehaviour(ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider)
         {
@@ -24,6 +26,7 @@ namespace Modules.Animals
             _objectToMove = objectToMove;
             _speedProvider.Initialize();
             _directionProvider.Initialize();
+            _movementCorrector.Initialize(objectToMove);
 
             OnInitialize();
         }
@@ -38,6 +41,12 @@ namespace Modules.Animals
             _directionProvider.Dispose();
             
             OnDispose();
+        }
+
+        public IMovementBehaviour SetCorrector(IMovementCorrector corrector)
+        {
+            _movementCorrector = corrector;
+            return this;
         }
 
         protected virtual void OnDispose()
