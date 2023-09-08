@@ -14,9 +14,5 @@
             )
         {
         }
-        
-        public override void Dispose()
-        {
-        }
     }
 }

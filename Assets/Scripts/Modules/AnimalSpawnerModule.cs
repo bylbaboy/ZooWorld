@@ -15,14 +15,14 @@ namespace Modules
 {
     public sealed class AnimalSpawnerModule : Module
     {
-        private List<IAnimal> _animalsToSpawn;
-        private List<Animal> _spawnedAnimals = new();
+        private IAnimalPicker _animalPicker;
+        private List<IAnimal> _spawnedAnimals = new();
         private IIntervalProvider<int> _intervalProvider;
         private IDisposable _spawning;
 
-        public AnimalSpawnerModule(IAnimalSet setToSpawn, IIntervalProvider<int> intervalProvider)
+        public AnimalSpawnerModule(IAnimalPicker animalPicker, IIntervalProvider<int> intervalProvider)
         {
-            _animalsToSpawn = setToSpawn.GetAnimals();
+            _animalPicker = animalPicker;
             _intervalProvider = intervalProvider;
         }
 
@@ -35,7 +35,7 @@ namespace Modules
 
         private void Spawn()
         {
-            var animal = new Snake(); //TODO for test, need to get animal from list and clone it
+            var animal = _animalPicker.GetNext();
             var prefab = animal.GetPrefab();
             var obj = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
 
@@ -43,6 +43,8 @@ namespace Modules
             {
                 initializable.Initialize(obj.transform);
             }
+            
+            _spawnedAnimals.Add(animal);
             
             WaitForSpawn();
         }

@@ -2,8 +2,8 @@
 
 namespace Modules.Animals
 {
-    public interface IAnimalSet
+    public interface IAnimalPicker
     {
-        List<IAnimal> GetAnimals();
+        IAnimal GetNext();
     }
 }

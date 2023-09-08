@@ -7,9 +7,15 @@ namespace Modules.Animals
     {
         private readonly IMovementBehaviour _movementBehaviour;
         
-        public override void Dispose()
+        public sealed override void Dispose()
         {
             _movementBehaviour.Dispose();
+            OnDispose();
+        }
+
+        protected virtual void OnDispose()
+        {
+            
         }
 
         public MovingAnimal(string name, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour) : base(name, prefabProvider)
