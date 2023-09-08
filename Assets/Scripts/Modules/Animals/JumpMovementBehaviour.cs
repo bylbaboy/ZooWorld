@@ -28,7 +28,7 @@ namespace Modules.Animals
             var rb = ObjectToMove.GetComponent<Rigidbody>();
             var direction = DirectionProvider.GetDirection();
             direction.Normalize();
-            direction.y = 1;
+            direction.y = 2;
             direction.Normalize();
 
             rb.AddForce(direction * SpeedProvider.GetSpeed(), ForceMode.Impulse);

@@ -15,12 +15,12 @@ namespace Modules.Animals.Entities
                 new ConstantValuesProvider<int>(0),
                 new ResourcesPrefabProvider("Frog"),
                 new JumpMovementBehaviour(
-                    new ConstantSpeedProvider(6),
+                    new ConstantSpeedProvider(8),
                     new IntervalBased2DMovementDirectionProvider(
                         new BoundedValuesProvider<float>(new Bounds<float>(45, 180), new RandomFloatPicker()), 
                         new BoundedValuesProvider<int>(new Bounds<int>(1000, 4000), new RandomIntPicker())
                     ),
-                    new BoundedValuesProvider<int>(new Bounds<int>(1000, 2000), new RandomIntPicker())
+                    new BoundedValuesProvider<int>(new Bounds<int>(1500, 2500), new RandomIntPicker())
                 )
             );
         }
