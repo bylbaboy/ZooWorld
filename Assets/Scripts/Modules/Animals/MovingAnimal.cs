@@ -3,29 +3,30 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
-    public abstract class MovingAnimal : Animal, IInitializable<Transform>
+    public sealed class MovingAnimal : IAnimal, IInitializable<Transform>
     {
+        private readonly IAnimal _baseAnimal;
         private readonly IMovementBehaviour _movementBehaviour;
         
-        public sealed override void Dispose()
+        public void Dispose()
         {
             _movementBehaviour.Dispose();
-            OnDispose();
+            _baseAnimal.Dispose();
         }
-
-        protected virtual void OnDispose()
+        
+        public MovingAnimal(string name, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour)
         {
-            
-        }
-
-        public MovingAnimal(string name, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour) : base(name, prefabProvider)
-        {
+            _baseAnimal = new Animal(name, prefabProvider);
             _movementBehaviour = movementBehaviour;
         }
 
-        public void Initialize(Transform obj)
-        {
+        public void Initialize(Transform obj) =>
             _movementBehaviour.Initialize(obj);
-        }
+
+        public string GetName() =>
+            _baseAnimal.GetName();
+
+        public GameObject GetPrefab() =>
+            _baseAnimal.GetPrefab();
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Modules.Animals
 {
-    public abstract class Animal : IAnimal
+    public sealed class Animal : IAnimal
     {
         private readonly string _name;
         private readonly IPrefabProvider _prefabProvider;
 
-        protected Animal(string name, IPrefabProvider prefabProvider)
+        public Animal(string name, IPrefabProvider prefabProvider)
         {
             _name = name;
             _prefabProvider = prefabProvider;
@@ -19,6 +19,8 @@ namespace Modules.Animals
         public GameObject GetPrefab() =>
             _prefabProvider.GetPrefab();
 
-        public abstract void Dispose();
+        public void Dispose()
+        {
+        }
     }
 }
