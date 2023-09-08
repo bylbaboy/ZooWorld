@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using System;
+using Services;
 using UnityEngine;
 
 namespace Tools
@@ -13,6 +14,16 @@ namespace Tools
         }
         
         private void Start()
+        {
+            Sync();
+        }
+
+        private void Update()
+        {
+            Sync();
+        }
+
+        private void Sync()
         {
             transform.rotation = _cameraService.GetCamera().transform.rotation;
         }
