@@ -3,6 +3,9 @@ using Tools;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    ///     Random values-based IAnimalFactory implementation
+    /// </summary>
     public sealed class RandomAnimalFactory : IAnimalFactory
     {
         private readonly WeightBasedRandom<IAnimal> _random;
