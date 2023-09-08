@@ -3,7 +3,7 @@
 namespace Modules.Animals
 {
     /// <summary>
-    /// Provides with the prefab
+    ///     Provides with the prefab
     /// </summary>
     public interface IPrefabProvider
     {

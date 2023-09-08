@@ -10,32 +10,18 @@ using UnityEngine;
 namespace Modules
 {
     /// <summary>
-    /// Controls stats displaying
+    ///     Controls stats displaying
     /// </summary>
     public sealed class StatsCounterModule : Module, IMessageListener<AnimalDiedMessage>
     {
-        private int _preysDied = 0;
-        private int _predatorsDied = 0;
-
+        private int _preysDied;
+        private int _predatorsDied;
         private TextModificationComponent _preysDiedText;
         private TextModificationComponent _predatorsDiedText;
 
-        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
+        public void OnMessage(AnimalDiedMessage message)
         {
-            _preysDiedText = Object.FindObjectOfType<PreysDiedTargetComponent>()
-                .GetComponent<TextModificationComponent>();
-            
-            _predatorsDiedText = Object.FindObjectOfType<PredatorsDiedTargetComponent>()
-                .GetComponent<TextModificationComponent>();
-            
-            Messenger.Subscribe(this);
-            
-            return Task.CompletedTask;
-        }
-
-        public override void Dispose()
-        {
-            Messenger.Unsubscribe(this);
+            CountAnimal(message.Victim);
         }
 
         private void CountAnimal(IAnimal animal)
@@ -58,9 +44,22 @@ namespace Modules
             _predatorsDiedText.UpdateText("" + _predatorsDied);
         }
 
-        public void OnMessage(AnimalDiedMessage message)
+        public override void Dispose()
         {
-            CountAnimal(message.Victim);
+            Messenger.Unsubscribe(this);
+        }
+
+        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
+        {
+            _preysDiedText = Object.FindObjectOfType<PreysDiedTargetComponent>()
+                .GetComponent<TextModificationComponent>();
+
+            _predatorsDiedText = Object.FindObjectOfType<PredatorsDiedTargetComponent>()
+                .GetComponent<TextModificationComponent>();
+
+            Messenger.Subscribe(this);
+
+            return Task.CompletedTask;
         }
     }
 }

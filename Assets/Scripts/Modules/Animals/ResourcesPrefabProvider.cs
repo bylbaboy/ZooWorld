@@ -3,11 +3,11 @@
 namespace Modules.Animals
 {
     /// <summary>
-    /// Resources-based IPrefabProvider implementation
+    ///     Resources-based IPrefabProvider implementation
     /// </summary>
     public sealed class ResourcesPrefabProvider : IPrefabProvider
     {
-        private string _prefabPathFromResources;
+        private readonly string _prefabPathFromResources;
 
         public ResourcesPrefabProvider(string prefabPathFromResources) =>
             _prefabPathFromResources = prefabPathFromResources;

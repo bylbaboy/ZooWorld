@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Modules.Collision
 {
     /// <summary>
-    /// Detects object collisions
+    ///     Detects object collisions
     /// </summary>
     public sealed class CollisionDetectorComponent : MonoBehaviour
     {
@@ -23,7 +23,7 @@ namespace Modules.Collision
             {
                 return;
             }
-            
+
             Messenger.Send(new AnimalCollisionMessage(gameObject, collision.gameObject));
         }
     }

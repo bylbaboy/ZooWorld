@@ -1,7 +1,7 @@
 ﻿namespace Modules.Animals
 {
     /// <summary>
-    /// Animal-related extensions
+    ///     Animal-related extensions
     /// </summary>
     public static class Extensions
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Modules.Animals
 {
     /// <summary>
-    /// Base IAnimal implementation
+    ///     Base IAnimal implementation
     /// </summary>
     public abstract class Animal : IAnimal
     {
@@ -22,11 +22,11 @@ namespace Modules.Animals
         public string GetName() =>
             _name;
 
-        public GameObject GetPrefab() =>
-            _prefabProvider.GetPrefab();
-
         public int GetPredationLevel() =>
             _predationLevel.GetNext();
+
+        public GameObject GetPrefab() =>
+            _prefabProvider.GetPrefab();
 
         public virtual void Dispose()
         {

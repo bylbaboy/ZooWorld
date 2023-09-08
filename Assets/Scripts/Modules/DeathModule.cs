@@ -12,24 +12,15 @@ using Random = UnityEngine.Random;
 namespace Modules
 {
     /// <summary>
-    /// Controls death process
+    ///     Controls death process
     /// </summary>
     public sealed class DeathModule : Module, IMessageListener<AnimalCollisionMessage>
     {
         private IAnimalManagerService _manager;
-        
-        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
-        {
-            _manager = services.Get<IAnimalManagerService>();
-            
-            Messenger.Subscribe(this);
-            
-            return Task.CompletedTask;
-        }
 
-        public override void Dispose()
+        public void OnMessage(AnimalCollisionMessage message)
         {
-            Messenger.Unsubscribe(this);
+            CheckForDeath(message.CollisionSource, message.CollisionTarget);
         }
 
         private void CheckForDeath(GameObject obj1, GameObject obj2)
@@ -41,7 +32,7 @@ namespace Modules
             {
                 return;
             }
-            
+
             var predation1 = animal1.GetPredationLevel();
             var predation2 = animal2.GetPredationLevel();
 
@@ -51,16 +42,13 @@ namespace Modules
                 {
                     return;
                 }
-                else
+                if (Random.Range(0, 2) == 1)
                 {
-                    if (Random.Range(0, 2) == 1)
-                    {
-                        Kill(animal2, animal1);
-                    }
-                    else if (predation1 < predation2)
-                    {
-                        Kill(animal1, animal2);
-                    }
+                    Kill(animal2, animal1);
+                }
+                else if (predation1 < predation2)
+                {
+                    Kill(animal1, animal2);
                 }
             }
             else if (predation1 > predation2)
@@ -73,11 +61,6 @@ namespace Modules
             }
         }
 
-        public void OnMessage(AnimalCollisionMessage message)
-        {
-            CheckForDeath(message.CollisionSource, message.CollisionTarget);
-        }
-
         private void Kill(IAnimal victim, IAnimal killer)
         {
             var success = _manager.TryGetObject(victim, out var obj);
@@ -86,8 +69,22 @@ namespace Modules
                 throw new Exception("Incorrect death logic");
             }
             Object.Destroy(obj);
-            
+
             Messenger.Send(new AnimalDiedMessage(victim, killer));
+        }
+
+        public override void Dispose()
+        {
+            Messenger.Unsubscribe(this);
+        }
+
+        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
+        {
+            _manager = services.Get<IAnimalManagerService>();
+
+            Messenger.Subscribe(this);
+
+            return Task.CompletedTask;
         }
     }
 }

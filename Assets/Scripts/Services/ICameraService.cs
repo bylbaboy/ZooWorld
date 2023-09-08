@@ -3,7 +3,7 @@
 namespace Services
 {
     /// <summary>
-    /// Provides access to the camera
+    ///     Provides access to the camera
     /// </summary>
     public interface ICameraService : IService
     {

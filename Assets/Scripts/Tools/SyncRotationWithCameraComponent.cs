@@ -1,11 +1,10 @@
-﻿using System;
-using Services;
+﻿using Services;
 using UnityEngine;
 
 namespace Tools
 {
     /// <summary>
-    /// Copies rotation from the camera component
+    ///     Copies rotation from the camera component
     /// </summary>
     public sealed class SyncRotationWithCameraComponent : MonoBehaviour
     {
@@ -15,13 +14,8 @@ namespace Tools
         {
             _cameraService = cameraService;
         }
-        
-        private void Start()
-        {
-            Sync();
-        }
 
-        private void Update()
+        private void Start()
         {
             Sync();
         }
@@ -29,6 +23,11 @@ namespace Tools
         private void Sync()
         {
             transform.rotation = _cameraService.GetCamera().transform.rotation;
+        }
+
+        private void Update()
+        {
+            Sync();
         }
     }
 }

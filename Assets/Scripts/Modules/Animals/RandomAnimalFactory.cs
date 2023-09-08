@@ -6,7 +6,7 @@ namespace Modules.Animals
     public sealed class RandomAnimalFactory : IAnimalFactory
     {
         private readonly WeightBasedRandom<IAnimal> _random;
-        
+
         public RandomAnimalFactory()
         {
             _random = new WeightBasedRandom<IAnimal>(
@@ -14,10 +14,8 @@ namespace Modules.Animals
                 (30, () => new Frog())
             );
         }
-        
-        public IAnimal CreateNext()
-        {
-            return _random.GetNext();
-        }
+
+        public IAnimal CreateNext() =>
+            _random.GetNext();
     }
 }

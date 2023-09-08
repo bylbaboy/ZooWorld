@@ -7,7 +7,7 @@ using Services;
 namespace Modules
 {
     /// <summary>
-    /// Controls zoo scene modules
+    ///     Controls zoo scene modules
     /// </summary>
     public sealed class ZooModules : Modules
     {
@@ -21,7 +21,7 @@ namespace Modules
                 ),
                 new DeathModule(),
                 new EmotionModule(new ResourcesPrefabProvider("KillEmotion")),
-                new StatsCounterModule(),
+                new StatsCounterModule()
             };
 
         protected override List<IService> GetServices() =>

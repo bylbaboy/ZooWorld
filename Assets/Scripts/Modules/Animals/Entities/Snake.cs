@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Modules.Animals.Entities
 {
     /// <summary>
-    /// Snake IAnimal implementation
+    ///     Snake IAnimal implementation
     /// </summary>
     public sealed class Snake : MovingAnimal
     {
@@ -13,7 +13,7 @@ namespace Modules.Animals.Entities
 
         public Snake() : base(
             "Snake",
-            new ConstantValuesProvider<int>(Random.Range(3,5)),
+            new ConstantValuesProvider<int>(Random.Range(3, 5)),
             new ResourcesPrefabProvider("Snake"),
             new LinearMovementBehaviour(
                 new ConstantSpeedProvider(4),

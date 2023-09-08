@@ -3,7 +3,7 @@
 namespace Common.Values
 {
     /// <summary>
-    /// Random int IValuePicker implementation
+    ///     Random int IValuePicker implementation
     /// </summary>
     public sealed class RandomIntPicker : IValuePicker<int>
     {

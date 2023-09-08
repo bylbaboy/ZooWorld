@@ -1,23 +1,18 @@
-﻿using System;
-
-namespace Common.Values
+﻿namespace Common.Values
 {
     /// <summary>
-    /// Generic IBounds implementation
+    ///     Generic IBounds implementation
     /// </summary>
     /// <typeparam name="T">Value type</typeparam>
     public sealed class Bounds<T> : IBounds<T> where T : struct
     {
-        private T _min;
-        private T _max;
+        public T Min { get; }
+        public T Max { get; }
 
         public Bounds(T min, T max)
         {
-            _min = min;
-            _max = max;
+            Min = min;
+            Max = max;
         }
-
-        public T Min => _min;
-        public T Max => _max;
     }
 }

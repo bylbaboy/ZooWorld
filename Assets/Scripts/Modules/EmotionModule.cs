@@ -12,28 +12,26 @@ using Object = UnityEngine.Object;
 namespace Modules
 {
     /// <summary>
-    /// Controls emotions showing
+    ///     Controls emotions showing
     /// </summary>
     public sealed class EmotionModule : Module, IMessageListener<AnimalDiedMessage>
     {
-        private IPrefabProvider _prefabProvider;
+        private readonly IPrefabProvider _prefabProvider;
         private IAnimalManagerService _manager;
         private ICameraService _camera;
 
         public EmotionModule(IPrefabProvider prefabProvider) =>
             _prefabProvider = prefabProvider;
 
-        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
+        public void OnMessage(AnimalDiedMessage message)
         {
-            _camera = services.Get<ICameraService>();
-            _manager = services.Get<IAnimalManagerService>();
-            Messenger.Subscribe(this);
-            return Task.CompletedTask;
+            ShowEmotion(message.Killer);
         }
 
-        public override void Dispose()
+        private IEnumerator DestroyAfterDelay(Object obj)
         {
-            Messenger.Unsubscribe(this);
+            yield return new WaitForSeconds(3);
+            Object.Destroy(obj);
         }
 
         private void ShowEmotion(IAnimal animal)
@@ -50,15 +48,17 @@ namespace Modules
             emotion.AddComponent<SyncRotationWithCameraComponent>().Initialize(_camera);
         }
 
-        private IEnumerator DestroyAfterDelay(Object obj)
+        public override void Dispose()
         {
-            yield return new WaitForSeconds(3);
-            Object.Destroy(obj);
+            Messenger.Unsubscribe(this);
         }
 
-        public void OnMessage(AnimalDiedMessage message)
+        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
         {
-            ShowEmotion(message.Killer);
+            _camera = services.Get<ICameraService>();
+            _manager = services.Get<IAnimalManagerService>();
+            Messenger.Subscribe(this);
+            return Task.CompletedTask;
         }
     }
 }

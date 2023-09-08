@@ -1,7 +1,7 @@
 ﻿namespace Modules.Animals
 {
     /// <summary>
-    /// Notifies when an animal dies
+    ///     Notifies when an animal dies
     /// </summary>
     public sealed class AnimalDiedMessage
     {

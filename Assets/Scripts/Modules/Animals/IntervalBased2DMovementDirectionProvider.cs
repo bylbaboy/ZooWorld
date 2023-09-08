@@ -2,11 +2,12 @@
 using Common.Values;
 using Cysharp.Threading.Tasks.Linq;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Modules.Animals
 {
     /// <summary>
-    /// 2D interval-based IMovementDirectionProvider implementation
+    ///     2D interval-based IMovementDirectionProvider implementation
     /// </summary>
     public sealed class IntervalBased2DMovementDirectionProvider : IMovementDirectionProvider
     {
@@ -14,27 +15,30 @@ namespace Modules.Animals
         private readonly IValuesProvider<int> _directionChangeTimeInterval;
         private Vector3 _currentDirection;
         private IDisposable _waitingForDirectionChange;
-        private System.Random _random;
+        private Random _random;
 
-        public void Initialize()
-        {
-            _random = new System.Random();
-            _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
-            
-            WaitForDirectionChange();
-        }
-
-        public Vector3 GetDirection() =>
-            _currentDirection;
-
-        public IntervalBased2DMovementDirectionProvider(IValuesProvider<float> directionChangeDeltasProvider, IValuesProvider<int> directionChangeDelaysProvider)
+        public IntervalBased2DMovementDirectionProvider(IValuesProvider<float> directionChangeDeltasProvider,
+            IValuesProvider<int> directionChangeDelaysProvider)
         {
             _directionChangeDeltaInDegrees = directionChangeDeltasProvider;
             _directionChangeTimeInterval = directionChangeDelaysProvider;
         }
 
-        private void WaitForDirectionChange() =>
-            _waitingForDirectionChange = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _directionChangeTimeInterval.GetNext())).Subscribe(_ => ChangeDirection());
+        public void Dispose()
+        {
+            _waitingForDirectionChange?.Dispose();
+        }
+
+        public Vector3 GetDirection() =>
+            _currentDirection;
+
+        public void Initialize()
+        {
+            _random = new Random();
+            _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
+
+            WaitForDirectionChange();
+        }
 
         private void ChangeDirection()
         {
@@ -50,9 +54,9 @@ namespace Modules.Animals
             WaitForDirectionChange();
         }
 
-        public void Dispose()
-        {
-            _waitingForDirectionChange?.Dispose();
-        }
+        private void WaitForDirectionChange() =>
+            _waitingForDirectionChange = UniTaskAsyncEnumerable
+                .Timer(new TimeSpan(0, 0, 0, 0, _directionChangeTimeInterval.GetNext()))
+                .Subscribe(_ => ChangeDirection());
     }
 }

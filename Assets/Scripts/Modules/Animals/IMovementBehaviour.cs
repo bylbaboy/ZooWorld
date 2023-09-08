@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Modules.Animals
 {
     /// <summary>
-    /// Controls movement of the object
+    ///     Controls movement of the object
     /// </summary>
     public interface IMovementBehaviour : IInitializable<Transform>, IDisposable
     {

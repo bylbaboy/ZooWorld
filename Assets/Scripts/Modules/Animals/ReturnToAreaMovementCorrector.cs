@@ -1,17 +1,16 @@
-﻿using Common;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Modules.Animals
 {
     /// <summary>
-    /// Returning to the specified area IMovementCorrector implementation
+    ///     Returning to the specified area IMovementCorrector implementation
     /// </summary>
     public sealed class ReturnToAreaMovementCorrector : IMovementCorrector
     {
         private const int DIRECTION_DELTA = 10;
         private Transform _objectToMove;
-        private Vector3 _areaCenter;
-        private float _areaRadius;
+        private readonly Vector3 _areaCenter;
+        private readonly float _areaRadius;
 
         public ReturnToAreaMovementCorrector(Vector3 areaCenter, float areaRadius)
         {
@@ -19,21 +18,16 @@ namespace Modules.Animals
             _areaRadius = areaRadius;
         }
 
-        public void Initialize(Transform obj)
-        {
-            _objectToMove = obj;
-        }
-
         public Vector3 Correct(Vector3 currentDirection)
         {
-            var toCenter = (_areaCenter - _objectToMove.position);
+            var toCenter = _areaCenter - _objectToMove.position;
             toCenter.y = 0;
             if (toCenter.magnitude < _areaRadius)
             {
                 return currentDirection;
             }
             toCenter.Normalize();
-            
+
             var currentDirectionFlat = currentDirection;
             currentDirectionFlat.y = 0;
             currentDirectionFlat.Normalize();
@@ -50,6 +44,11 @@ namespace Modules.Animals
             correctedDirection.y = currentDirection.y;
             correctedDirection.Normalize();
             return correctedDirection;
+        }
+
+        public void Initialize(Transform obj)
+        {
+            _objectToMove = obj;
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace Modules.Collision
 {
     /// <summary>
-    /// Notifies when some animals have collided
+    ///     Notifies when some animals have collided
     /// </summary>
     public sealed class AnimalCollisionMessage
     {

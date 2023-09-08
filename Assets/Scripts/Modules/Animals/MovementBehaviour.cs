@@ -1,60 +1,53 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Modules.Animals
 {
     /// <summary>
-    /// Basic IMovementBehaviour implementation
+    ///     Basic IMovementBehaviour implementation
     /// </summary>
     public abstract class MovementBehaviour : IMovementBehaviour
     {
-        private Transform _objectToMove;
-        private readonly ISpeedProvider _speedProvider;
-        private readonly IMovementDirectionProvider _directionProvider;
-        private IMovementCorrector _movementCorrector;
-
-        protected Transform ObjectToMove => _objectToMove;
-        protected ISpeedProvider SpeedProvider => _speedProvider;
-        protected IMovementDirectionProvider DirectionProvider => _directionProvider;
-        protected IMovementCorrector MovementCorrector => _movementCorrector;
+        protected Transform ObjectToMove { get; private set; }
+        protected ISpeedProvider SpeedProvider { get; }
+        protected IMovementDirectionProvider DirectionProvider { get; }
+        protected IMovementCorrector MovementCorrector { get; private set; }
 
         protected MovementBehaviour(ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider)
         {
-            _speedProvider = speedProvider;
-            _directionProvider = directionProvider;
-        }
-
-        public void Initialize(Transform objectToMove)
-        {
-            _objectToMove = objectToMove;
-            _speedProvider.Initialize();
-            _directionProvider.Initialize();
-            _movementCorrector.Initialize(objectToMove);
-
-            OnInitialize();
-        }
-
-        protected virtual void OnInitialize()
-        {
+            SpeedProvider = speedProvider;
+            DirectionProvider = directionProvider;
         }
 
         public void Dispose()
         {
-            _speedProvider.Dispose();
-            _directionProvider.Dispose();
-            
+            SpeedProvider.Dispose();
+            DirectionProvider.Dispose();
+
             OnDispose();
+        }
+
+        public void Initialize(Transform objectToMove)
+        {
+            ObjectToMove = objectToMove;
+            SpeedProvider.Initialize();
+            DirectionProvider.Initialize();
+            MovementCorrector.Initialize(objectToMove);
+
+            OnInitialize();
         }
 
         public IMovementBehaviour SetCorrector(IMovementCorrector corrector)
         {
-            _movementCorrector = corrector;
+            MovementCorrector = corrector;
             return this;
         }
 
         protected virtual void OnDispose()
         {
-            
+        }
+
+        protected virtual void OnInitialize()
+        {
         }
     }
 }

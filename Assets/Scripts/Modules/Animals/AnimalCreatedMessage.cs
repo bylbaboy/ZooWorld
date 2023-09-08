@@ -3,7 +3,7 @@
 namespace Modules.Animals
 {
     /// <summary>
-    /// Notifies when an animal is created
+    ///     Notifies when an animal is created
     /// </summary>
     public sealed class AnimalCreatedMessage
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Modules.Animals
 {
     /// <summary>
-    /// Jump MovementBehaviour implementation
+    ///     Jump MovementBehaviour implementation
     /// </summary>
     public sealed class JumpMovementBehaviour : MovementBehaviour
     {
@@ -14,17 +14,10 @@ namespace Modules.Animals
         private IDisposable _jumping;
 
         public JumpMovementBehaviour(
-            ISpeedProvider speedProvider, 
-            IMovementDirectionProvider directionProvider, 
-            IValuesProvider<int> jumpDelaysProvider) : base(speedProvider, directionProvider)
-        {
+            ISpeedProvider speedProvider,
+            IMovementDirectionProvider directionProvider,
+            IValuesProvider<int> jumpDelaysProvider) : base(speedProvider, directionProvider) =>
             _jumpDelaysProvider = jumpDelaysProvider;
-        }
-
-        protected override void OnInitialize()
-        {
-            Jump();
-        }
 
         private void Jump()
         {
@@ -50,6 +43,11 @@ namespace Modules.Animals
         protected override void OnDispose()
         {
             _jumping?.Dispose();
+        }
+
+        protected override void OnInitialize()
+        {
+            Jump();
         }
     }
 }

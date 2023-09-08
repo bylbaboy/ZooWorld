@@ -6,11 +6,28 @@ using UnityEngine;
 namespace Services
 {
     /// <summary>
-    /// Basic IAnimalManagerService implementation
+    ///     Basic IAnimalManagerService implementation
     /// </summary>
-    public sealed class AnimalManagerService : Service, IAnimalManagerService, IMessageListener<AnimalCreatedMessage>, IMessageListener<AnimalDiedMessage>
+    public sealed class AnimalManagerService : Service, IAnimalManagerService, IMessageListener<AnimalCreatedMessage>,
+        IMessageListener<AnimalDiedMessage>
     {
-        private TwoWayDictionary<IAnimal, GameObject> _animals = new();
+        private readonly TwoWayDictionary<IAnimal, GameObject> _animals = new();
+
+        public void OnMessage(AnimalCreatedMessage message)
+        {
+            Register(message.Animal, message.Object);
+        }
+
+        public void OnMessage(AnimalDiedMessage message)
+        {
+            Remove(message.Victim);
+        }
+
+        public bool TryGetAnimal(GameObject obj, out IAnimal animal) =>
+            _animals.TryGetKeyByValue(obj, out animal);
+
+        public bool TryGetObject(IAnimal animal, out GameObject obj) =>
+            _animals.TryGetValueByKey(animal, out obj);
 
         private void Register(IAnimal animal, GameObject obj)
         {
@@ -27,37 +44,21 @@ namespace Services
             _animals.Remove(animal);
         }
 
-        public bool TryGetAnimal(GameObject obj, out IAnimal animal) =>
-            _animals.TryGetKeyByValue(obj, out animal);
-
-        public bool TryGetObject(IAnimal animal, out GameObject obj) =>
-            _animals.TryGetValueByKey(animal, out obj);
-
-        public override void Initialize(IServices services)
-        {
-            Messenger.Subscribe<AnimalCreatedMessage>(this);
-            Messenger.Subscribe<AnimalDiedMessage>(this);
-        }
-
         public override void Dispose()
         {
             Messenger.Unsubscribe<AnimalCreatedMessage>(this);
             Messenger.Unsubscribe<AnimalDiedMessage>(this);
-            
+
             foreach (var animal in _animals.GetKeys())
             {
                 animal.Dispose();
             }
         }
 
-        public void OnMessage(AnimalCreatedMessage message)
+        public override void Initialize(IServices services)
         {
-            Register(message.Animal, message.Object);
-        }
-
-        public void OnMessage(AnimalDiedMessage message)
-        {
-            Remove(message.Victim);
+            Messenger.Subscribe<AnimalCreatedMessage>(this);
+            Messenger.Subscribe<AnimalDiedMessage>(this);
         }
     }
 }

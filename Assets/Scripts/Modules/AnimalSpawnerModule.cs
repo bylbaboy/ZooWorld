@@ -14,30 +14,24 @@ using Random = UnityEngine.Random;
 namespace Modules
 {
     /// <summary>
-    /// Controls animals spawning
+    ///     Controls animals spawning
     /// </summary>
     public sealed class AnimalSpawnerModule : Module
     {
-        private IAnimalFactory _animalFactory;
-        private IValuesProvider<int> _intervalsProvider;
-        private IBounds<Vector2> _spawnArea;
+        private readonly IAnimalFactory _animalFactory;
+        private readonly IValuesProvider<int> _intervalsProvider;
+        private readonly IBounds<Vector2> _spawnArea;
         private IDisposable _spawning;
-        private Transform _parentObject;
+        private readonly Transform _parentObject;
 
-        public AnimalSpawnerModule(IAnimalFactory animalFactory, IValuesProvider<int> intervalsProvider, IBounds<Vector2> spawnArea)
+        public AnimalSpawnerModule(IAnimalFactory animalFactory, IValuesProvider<int> intervalsProvider,
+            IBounds<Vector2> spawnArea)
         {
             _animalFactory = animalFactory;
             _intervalsProvider = intervalsProvider;
             _spawnArea = spawnArea;
-            
+
             _parentObject = new GameObject("AnimalsParent").transform;
-        }
-
-        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
-        {
-            Spawn();
-
-            return Task.CompletedTask;
         }
 
         private void Spawn()
@@ -49,7 +43,7 @@ namespace Modules
                 0,
                 Random.Range(_spawnArea.Min.y, _spawnArea.Max.y)
             );
-            
+
             var obj = Object.Instantiate(prefab, randomPosition, Quaternion.identity, _parentObject);
 
             if (animal is IInitializable<Transform> initializable)
@@ -58,7 +52,7 @@ namespace Modules
             }
 
             Messenger.Send(new AnimalCreatedMessage(animal, obj));
-            
+
             WaitForSpawn();
         }
 
@@ -71,6 +65,13 @@ namespace Modules
         public override void Dispose()
         {
             _spawning.Dispose();
+        }
+
+        public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
+        {
+            Spawn();
+
+            return Task.CompletedTask;
         }
     }
 }

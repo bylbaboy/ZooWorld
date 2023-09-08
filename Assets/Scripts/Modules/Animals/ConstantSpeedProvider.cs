@@ -1,7 +1,7 @@
 ﻿namespace Modules.Animals
 {
     /// <summary>
-    /// Constant ISpeedProvider implementation
+    ///     Constant ISpeedProvider implementation
     /// </summary>
     public sealed class ConstantSpeedProvider : ISpeedProvider
     {
@@ -10,14 +10,14 @@
         public ConstantSpeedProvider(float speed) =>
             _speed = speed;
 
-        public void Initialize()
+        public void Dispose()
         {
         }
 
         public float GetSpeed() =>
             _speed;
 
-        public void Dispose()
+        public void Initialize()
         {
         }
     }

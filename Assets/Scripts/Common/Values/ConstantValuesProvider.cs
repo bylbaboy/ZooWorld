@@ -1,12 +1,12 @@
 ﻿namespace Common.Values
 {
     /// <summary>
-    /// Generic IConstantValuesProvider implementation
+    ///     Generic IConstantValuesProvider implementation
     /// </summary>
     /// <typeparam name="T">Values type</typeparam>
     public sealed class ConstantValuesProvider<T> : IConstantValuesProvider<T>
     {
-        private T _parameter;
+        private readonly T _parameter;
 
         public ConstantValuesProvider(T parameter) =>
             _parameter = parameter;
