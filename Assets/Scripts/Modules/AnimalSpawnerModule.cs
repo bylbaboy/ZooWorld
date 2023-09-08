@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Common;
@@ -16,7 +15,6 @@ namespace Modules
     public sealed class AnimalSpawnerModule : Module
     {
         private IAnimalPicker _animalPicker;
-        private List<IAnimal> _spawnedAnimals = new();
         private IValuesProvider<int> _intervalsProvider;
         private IDisposable _spawning;
 
@@ -43,8 +41,8 @@ namespace Modules
             {
                 initializable.Initialize(obj.transform);
             }
-            
-            _spawnedAnimals.Add(animal);
+
+            Messenger.Send(new AnimalCreatedMessage(animal, obj));
             
             WaitForSpawn();
         }
@@ -58,11 +56,6 @@ namespace Modules
         public override void Dispose()
         {
             _spawning.Dispose();
-
-            foreach (var animal in _spawnedAnimals)
-            {
-                animal.Dispose();
-            }
         }
     }
 }

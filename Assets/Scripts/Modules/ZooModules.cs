@@ -11,11 +11,15 @@ namespace Modules
             new()
             {
                 new AnimalSpawnerModule(
-                    new RandomAnimalPicker(), 
-                    new BoundedValuesProvider<int>(new Bounds<int>(1000, 2000), new RandomIntPicker())),
+                    new RandomAnimalPicker(),
+                    new BoundedValuesProvider<int>(new Bounds<int>(1000, 2000), new RandomIntPicker())
+                ),
             };
 
         protected override List<IService> GetServices() =>
-            base.GetServices();
+            new()
+            {
+                new AnimalManagerService(),
+            };
     }
 }
