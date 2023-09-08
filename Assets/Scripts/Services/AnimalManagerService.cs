@@ -54,7 +54,7 @@ namespace Services
 
         public void OnMessage(AnimalDiedMessage message)
         {
-            Remove(message.Animal);
+            Remove(message.Victim);
         }
     }
 }

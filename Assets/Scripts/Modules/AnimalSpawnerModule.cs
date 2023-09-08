@@ -61,7 +61,7 @@ namespace Modules
 
         private void WaitForSpawn()
         {
-            _spawning = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, 0, 0, _intervalsProvider.GetNext()))
+            _spawning = UniTaskAsyncEnumerable.Timer(new TimeSpan(0, 0, _intervalsProvider.GetNext()))
                 .Subscribe(_ => Spawn());
         }
 

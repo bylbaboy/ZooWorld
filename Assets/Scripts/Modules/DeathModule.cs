@@ -50,16 +50,23 @@ namespace Modules
                 }
                 else
                 {
-                    Kill(Random.Range(0, 2) == 1 ? animal1 : animal2);
+                    if (Random.Range(0, 2) == 1)
+                    {
+                        Kill(animal2, animal1);
+                    }
+                    else if (predation1 < predation2)
+                    {
+                        Kill(animal1, animal2);
+                    }
                 }
             }
             else if (predation1 > predation2)
             {
-                Kill(animal2);
+                Kill(animal2, animal1);
             }
             else if (predation1 < predation2)
             {
-                Kill(animal1);
+                Kill(animal1, animal2);
             }
         }
 
@@ -68,16 +75,16 @@ namespace Modules
             CheckForDeath(message.CollisionSource, message.CollisionTarget);
         }
 
-        private void Kill(IAnimal animal)
+        private void Kill(IAnimal victim, IAnimal killer)
         {
-            var success = _manager.TryGetObject(animal, out var obj);
+            var success = _manager.TryGetObject(victim, out var obj);
             if (!success)
             {
                 throw new Exception("Incorrect death logic");
             }
             Object.Destroy(obj);
             
-            Messenger.Send(new AnimalDiedMessage(animal));
+            Messenger.Send(new AnimalDiedMessage(victim, killer));
         }
     }
 }

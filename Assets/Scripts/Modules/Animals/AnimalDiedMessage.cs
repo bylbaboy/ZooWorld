@@ -2,9 +2,13 @@
 {
     public sealed class AnimalDiedMessage
     {
-        public readonly IAnimal Animal;
+        public readonly IAnimal Victim;
+        public readonly IAnimal Killer;
 
-        public AnimalDiedMessage(IAnimal animal) =>
-            Animal = animal;
+        public AnimalDiedMessage(IAnimal victim, IAnimal killer)
+        {
+            Victim = victim;
+            Killer = killer;
+        }
     }
 }

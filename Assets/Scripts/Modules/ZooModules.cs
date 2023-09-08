@@ -13,16 +13,18 @@ namespace Modules
             {
                 new AnimalSpawnerModule(
                     new RandomAnimalPicker(),
-                    new BoundedValuesProvider<int>(new Bounds<int>(1000, 2000), new RandomIntPicker()),
+                    new BoundedValuesProvider<int>(new Bounds<int>(1, 2), new RandomIntPicker()),
                     Constants.SPAWN_AREA
                 ),
                 new DeathModule(),
+                new EmotionModule(new ResourcesPrefabProvider("KillEmotion"))
             };
 
         protected override List<IService> GetServices() =>
             new()
             {
                 new AnimalManagerService(),
+                new CameraService()
             };
     }
 }
