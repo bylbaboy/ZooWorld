@@ -28,10 +28,6 @@ namespace Modules.Animals
             var correctedDirection = MovementCorrector.Correct(direction);
             var translation = correctedDirection * SpeedProvider.GetSpeed() * Time.deltaTime;
             ObjectToMove.Translate(translation);
-
-            var looKVector = direction;
-            looKVector.y = 0;
-            ObjectToMove.rotation = Quaternion.LookRotation(looKVector, Vector3.up);
         }
     }
 }

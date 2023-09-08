@@ -35,10 +35,6 @@ namespace Modules.Animals
 
             rb.AddForce(correctedDirection * SpeedProvider.GetSpeed(), ForceMode.Impulse);
 
-            var looKVector = direction;
-            looKVector.y = 0;
-            ObjectToMove.rotation = Quaternion.LookRotation(looKVector, Vector3.up);
-
             WaitForJump();
         }
 
