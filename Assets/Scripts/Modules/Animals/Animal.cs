@@ -9,7 +9,7 @@ namespace Modules.Animals
         private readonly IValuesProvider<int> _predationLevel;
         private readonly IPrefabProvider _prefabProvider;
 
-        public Animal(string name, IValuesProvider<int> predationLevel, IPrefabProvider prefabProvider)
+        public Animal(string name, IConstantValuesProvider<int> predationLevel, IPrefabProvider prefabProvider)
         {
             _name = name;
             _predationLevel = predationLevel;

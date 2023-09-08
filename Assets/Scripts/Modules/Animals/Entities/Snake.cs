@@ -12,7 +12,7 @@ namespace Modules.Animals.Entities
         {
             _baseAnimal = new MovingAnimal(
                 "Snake",
-                new BoundedValuesProvider<int>(new Bounds<int>(3, 5), new RandomIntPicker()),
+                new ConstantValuesProvider<int>(Random.Range(3,5)),
                 new ResourcesPrefabProvider("Snake"),
                 new LinearMovementBehaviour(
                     new ConstantSpeedProvider(4),

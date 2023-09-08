@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Services
 {
-    public sealed class AnimalManagerService : Service, IAnimalManagerService, IMessageListener<AnimalCreatedMessage>
+    public sealed class AnimalManagerService : Service, IAnimalManagerService, IMessageListener<AnimalCreatedMessage>, IMessageListener<AnimalDiedMessage>
     {
         private TwoWayDictionary<IAnimal, GameObject> _animals = new();
 
@@ -18,26 +18,28 @@ namespace Services
             }
         }
 
-        public IAnimal GetAnimal(GameObject obj)
+        private void Remove(IAnimal animal)
         {
-            var success = _animals.TryGetKeyByValue(obj, out var animal);
-
-            if (!success)
-            {
-                throw new Exception("Animal was not found");
-            }
-            
-            return animal;
+            animal.Dispose();
+            _animals.Remove(animal);
         }
+
+        public bool TryGetAnimal(GameObject obj, out IAnimal animal) =>
+            _animals.TryGetKeyByValue(obj, out animal);
+
+        public bool TryGetObject(IAnimal animal, out GameObject obj) =>
+            _animals.TryGetValueByKey(animal, out obj);
 
         public override void Initialize(IServices services)
         {
-            Messenger.Subscribe(this);
+            Messenger.Subscribe<AnimalCreatedMessage>(this);
+            Messenger.Subscribe<AnimalDiedMessage>(this);
         }
 
         public override void Dispose()
         {
-            Messenger.Unsubscribe(this);
+            Messenger.Unsubscribe<AnimalCreatedMessage>(this);
+            Messenger.Unsubscribe<AnimalDiedMessage>(this);
             
             foreach (var animal in _animals.GetKeys())
             {
@@ -48,6 +50,11 @@ namespace Services
         public void OnMessage(AnimalCreatedMessage message)
         {
             Register(message.Animal, message.Object);
+        }
+
+        public void OnMessage(AnimalDiedMessage message)
+        {
+            Remove(message.Animal);
         }
     }
 }

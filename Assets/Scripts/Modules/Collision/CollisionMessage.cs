@@ -4,13 +4,13 @@ namespace Modules.Collision
 {
     public sealed class CollisionMessage
     {
-        public readonly GameObject _collisionSource;
-        public readonly GameObject _collisionTarget;
+        public readonly GameObject CollisionSource;
+        public readonly GameObject CollisionTarget;
 
         public CollisionMessage(GameObject collisionSource, GameObject collisionTarget)
         {
-            _collisionSource = collisionSource;
-            _collisionTarget = collisionTarget;
+            CollisionSource = collisionSource;
+            CollisionTarget = collisionTarget;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Modules
                     new RandomAnimalPicker(),
                     new BoundedValuesProvider<int>(new Bounds<int>(1000, 2000), new RandomIntPicker())
                 ),
+                new DeathModule(),
             };
 
         protected override List<IService> GetServices() =>

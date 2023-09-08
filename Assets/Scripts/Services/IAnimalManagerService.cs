@@ -5,6 +5,7 @@ namespace Services
 {
     public interface IAnimalManagerService : IService
     {
-        IAnimal GetAnimal(GameObject obj);
+        bool TryGetAnimal(GameObject obj, out IAnimal animal);
+        bool TryGetObject(IAnimal animal, out GameObject obj);
     }
 }

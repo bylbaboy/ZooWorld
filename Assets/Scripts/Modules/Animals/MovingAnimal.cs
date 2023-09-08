@@ -15,7 +15,7 @@ namespace Modules.Animals
             _baseAnimal.Dispose();
         }
         
-        public MovingAnimal(string name, IValuesProvider<int> predationLevel, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour)
+        public MovingAnimal(string name, IConstantValuesProvider<int> predationLevel, IPrefabProvider prefabProvider, IMovementBehaviour movementBehaviour)
         {
             _baseAnimal = new Animal(name, predationLevel, prefabProvider);
             _movementBehaviour = movementBehaviour;

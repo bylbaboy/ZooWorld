@@ -1,6 +1,6 @@
 ﻿namespace Common.Values
 {
-    public sealed class ConstantValuesProvider<T> : IValuesProvider<T>
+    public sealed class ConstantValuesProvider<T> : IConstantValuesProvider<T>
     {
         private T _parameter;
 
