@@ -17,7 +17,8 @@ namespace Modules
                     Constants.SPAWN_AREA
                 ),
                 new DeathModule(),
-                new EmotionModule(new ResourcesPrefabProvider("KillEmotion"))
+                new EmotionModule(new ResourcesPrefabProvider("KillEmotion")),
+                new StatsCounterModule(),
             };
 
         protected override List<IService> GetServices() =>
