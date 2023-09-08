@@ -11,7 +11,10 @@ using Random = UnityEngine.Random;
 
 namespace Modules
 {
-    public sealed class DeathModule : Module, IMessageListener<CollisionMessage>
+    /// <summary>
+    /// Controls death process
+    /// </summary>
+    public sealed class DeathModule : Module, IMessageListener<AnimalCollisionMessage>
     {
         private IAnimalManagerService _manager;
         
@@ -70,7 +73,7 @@ namespace Modules
             }
         }
 
-        public void OnMessage(CollisionMessage message)
+        public void OnMessage(AnimalCollisionMessage message)
         {
             CheckForDeath(message.CollisionSource, message.CollisionTarget);
         }

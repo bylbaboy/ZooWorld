@@ -1,9 +1,11 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
-namespace Modules.Stats
+namespace Tools
 {
+    /// <summary>
+    /// Allows to modify text component content
+    /// </summary>
     [RequireComponent(typeof(TMP_Text))]
     public sealed class TextModificationComponent : MonoBehaviour
     {

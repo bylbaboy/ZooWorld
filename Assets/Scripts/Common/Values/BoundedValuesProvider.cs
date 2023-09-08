@@ -2,6 +2,10 @@
 
 namespace Common.Values
 {
+    /// <summary>
+    /// IValuesProvider based on the provided bounds
+    /// </summary>
+    /// <typeparam name="T">Provided value type</typeparam>
     public sealed class BoundedValuesProvider<T> : IValuesProvider<T> where T : struct, IComparable<T>
     {
         private IBounds<T> _bounds;

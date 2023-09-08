@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Services
 {
+    /// <summary>
+    /// Basic IAnimalManagerService implementation
+    /// </summary>
     public sealed class AnimalManagerService : Service, IAnimalManagerService, IMessageListener<AnimalCreatedMessage>, IMessageListener<AnimalDiedMessage>
     {
         private TwoWayDictionary<IAnimal, GameObject> _animals = new();

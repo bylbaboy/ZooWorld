@@ -2,6 +2,9 @@
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// Notifies when an animal is created
+    /// </summary>
     public sealed class AnimalCreatedMessage
     {
         public readonly IAnimal Animal;

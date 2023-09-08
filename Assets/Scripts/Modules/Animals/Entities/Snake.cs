@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Modules.Animals.Entities
 {
+    /// <summary>
+    /// Snake IAnimal implementation
+    /// </summary>
     public sealed class Snake : MovingAnimal
     {
         private readonly MovingAnimal _baseAnimal;

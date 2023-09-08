@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Modules.Animals;
 
 namespace Common
 {
+    /// <summary>
+    /// Two way Dictionary implementation
+    /// </summary>
+    /// <typeparam name="TKey">Key type</typeparam>
+    /// <typeparam name="TValue">Value type</typeparam>
     public class TwoWayDictionary<TKey, TValue>
     {
         private readonly Dictionary<TKey, TValue> _keyToValue = new();

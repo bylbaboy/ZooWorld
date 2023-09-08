@@ -3,11 +3,11 @@ using Tools;
 
 namespace Modules.Animals
 {
-    public sealed class RandomAnimalPicker : IAnimalPicker
+    public sealed class RandomAnimalFactory : IAnimalFactory
     {
         private readonly WeightBasedRandom<IAnimal> _random;
         
-        public RandomAnimalPicker()
+        public RandomAnimalFactory()
         {
             _random = new WeightBasedRandom<IAnimal>(
                 (10, () => new Snake()),
@@ -15,7 +15,7 @@ namespace Modules.Animals
             );
         }
         
-        public IAnimal GetNext()
+        public IAnimal CreateNext()
         {
             return _random.GetNext();
         }

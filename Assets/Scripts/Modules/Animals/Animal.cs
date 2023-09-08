@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// Base IAnimal implementation
+    /// </summary>
     public abstract class Animal : IAnimal
     {
         private readonly string _name;

@@ -2,9 +2,9 @@
 
 namespace Modules.Animals
 {
-    public sealed class SnakeAnimalPicker : IAnimalPicker
+    public sealed class SnakeAnimalFactory : IAnimalFactory
     {
-        public IAnimal GetNext() =>
+        public IAnimal CreateNext() =>
             new Snake();
     }
 }

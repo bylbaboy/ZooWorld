@@ -4,10 +4,14 @@ using Common;
 using Modules.Animals;
 using Modules.Stats;
 using Services;
+using Tools;
 using UnityEngine;
 
 namespace Modules
 {
+    /// <summary>
+    /// Controls stats displaying
+    /// </summary>
     public sealed class StatsCounterModule : Module, IMessageListener<AnimalDiedMessage>
     {
         private int _preysDied = 0;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// Linear MovementBehaviour implementation
+    /// </summary>
     public sealed class LinearMovementBehaviour : MovementBehaviour
     {
         private IDisposable _updating;

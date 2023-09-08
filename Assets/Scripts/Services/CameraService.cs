@@ -2,9 +2,12 @@
 
 namespace Services
 {
+    /// <summary>
+    /// Basic ICameraService implementation
+    /// </summary>
     public sealed class CameraService : Service, ICameraService
     {
-        private Camera _camera;
+        private readonly Camera _camera;
         
         public CameraService()
         {

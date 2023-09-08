@@ -6,13 +6,16 @@ using Services;
 
 namespace Modules
 {
+    /// <summary>
+    /// Controls zoo scene modules
+    /// </summary>
     public sealed class ZooModules : Modules
     {
         protected override List<IModule> GetModules() =>
             new()
             {
                 new AnimalSpawnerModule(
-                    new RandomAnimalPicker(),
+                    new RandomAnimalFactory(),
                     new BoundedValuesProvider<int>(new Bounds<int>(1, 2), new RandomIntPicker()),
                     Constants.SPAWN_AREA
                 ),

@@ -11,6 +11,9 @@ using Object = UnityEngine.Object;
 
 namespace Modules
 {
+    /// <summary>
+    /// Controls emotions showing
+    /// </summary>
     public sealed class EmotionModule : Module, IMessageListener<AnimalDiedMessage>
     {
         private IPrefabProvider _prefabProvider;

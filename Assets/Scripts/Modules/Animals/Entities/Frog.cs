@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Modules.Animals.Entities
 {
+    /// <summary>
+    /// Frog IAnimal implementation
+    /// </summary>
     public sealed class Frog : MovingAnimal
     {
         private readonly MovingAnimal _baseAnimal;

@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// 2D interval-based IMovementDirectionProvider implementation
+    /// </summary>
     public sealed class IntervalBased2DMovementDirectionProvider : IMovementDirectionProvider
     {
         private readonly IValuesProvider<float> _directionChangeDeltaInDegrees;

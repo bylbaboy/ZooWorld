@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Tools
 {
+    /// <summary>
+    /// Copies rotation from the camera component
+    /// </summary>
     public sealed class SyncRotationWithCameraComponent : MonoBehaviour
     {
         private ICameraService _cameraService;

@@ -2,10 +2,14 @@
 
 namespace Tools
 {
+    /// <summary>
+    /// Chooses the entities based on the weight random
+    /// </summary>
+    /// <typeparam name="T">Type of entity</typeparam>
     public sealed class WeightBasedRandom<T>
     {
         private readonly Random _random;
-        private int _totalWeight = 0;
+        private readonly int _totalWeight = 0;
         private (int weight, Func<T> func)[] _entities;
         
         public WeightBasedRandom(params (int weight, Func<T> func)[] entities)

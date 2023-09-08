@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// Jump MovementBehaviour implementation
+    /// </summary>
     public sealed class JumpMovementBehaviour : MovementBehaviour
     {
         private readonly IValuesProvider<int> _jumpDelaysProvider;

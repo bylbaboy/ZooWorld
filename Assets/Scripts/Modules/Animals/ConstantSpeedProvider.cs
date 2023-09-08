@@ -1,5 +1,8 @@
 ﻿namespace Modules.Animals
 {
+    /// <summary>
+    /// Constant ISpeedProvider implementation
+    /// </summary>
     public sealed class ConstantSpeedProvider : ISpeedProvider
     {
         private readonly float _speed;

@@ -2,12 +2,15 @@
 
 namespace Modules.Collision
 {
-    public sealed class CollisionMessage
+    /// <summary>
+    /// Notifies when some animals have collided
+    /// </summary>
+    public sealed class AnimalCollisionMessage
     {
         public readonly GameObject CollisionSource;
         public readonly GameObject CollisionTarget;
 
-        public CollisionMessage(GameObject collisionSource, GameObject collisionTarget)
+        public AnimalCollisionMessage(GameObject collisionSource, GameObject collisionTarget)
         {
             CollisionSource = collisionSource;
             CollisionTarget = collisionTarget;

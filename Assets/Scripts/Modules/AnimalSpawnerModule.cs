@@ -13,17 +13,20 @@ using Random = UnityEngine.Random;
 
 namespace Modules
 {
+    /// <summary>
+    /// Controls animals spawning
+    /// </summary>
     public sealed class AnimalSpawnerModule : Module
     {
-        private IAnimalPicker _animalPicker;
+        private IAnimalFactory _animalFactory;
         private IValuesProvider<int> _intervalsProvider;
         private IBounds<Vector2> _spawnArea;
         private IDisposable _spawning;
         private Transform _parentObject;
 
-        public AnimalSpawnerModule(IAnimalPicker animalPicker, IValuesProvider<int> intervalsProvider, IBounds<Vector2> spawnArea)
+        public AnimalSpawnerModule(IAnimalFactory animalFactory, IValuesProvider<int> intervalsProvider, IBounds<Vector2> spawnArea)
         {
-            _animalPicker = animalPicker;
+            _animalFactory = animalFactory;
             _intervalsProvider = intervalsProvider;
             _spawnArea = spawnArea;
             
@@ -39,7 +42,7 @@ namespace Modules
 
         private void Spawn()
         {
-            var animal = _animalPicker.GetNext();
+            var animal = _animalFactory.CreateNext();
             var prefab = animal.GetPrefab();
             var randomPosition = new Vector3(
                 Random.Range(_spawnArea.Min.x, _spawnArea.Max.x),

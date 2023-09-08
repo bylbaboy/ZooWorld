@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// Returning to the specified area IMovementCorrector implementation
+    /// </summary>
     public sealed class ReturnToAreaMovementCorrector : IMovementCorrector
     {
         private const int DIRECTION_DELTA = 10;

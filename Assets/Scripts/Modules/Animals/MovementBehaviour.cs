@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// Basic IMovementBehaviour implementation
+    /// </summary>
     public abstract class MovementBehaviour : IMovementBehaviour
     {
         private Transform _objectToMove;

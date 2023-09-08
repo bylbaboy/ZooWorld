@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Modules.Animals
 {
+    /// <summary>
+    /// Moving extension for the Animal implementation
+    /// </summary>
     public abstract class MovingAnimal : Animal, IInitializable<Transform>
     {
         private readonly IMovementBehaviour _movementBehaviour;
