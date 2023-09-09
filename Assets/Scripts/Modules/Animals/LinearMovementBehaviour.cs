@@ -19,8 +19,7 @@ namespace Modules.Animals
         private void Move()
         {
             var direction = DirectionProvider.GetDirection().normalized;
-            var correctedDirection = MovementCorrector.Correct(direction);
-            var translation = correctedDirection * SpeedProvider.GetSpeed() * Time.deltaTime;
+            var translation = direction * SpeedProvider.GetSpeed() * Time.deltaTime;
             ObjectToMove.Translate(translation);
         }
 

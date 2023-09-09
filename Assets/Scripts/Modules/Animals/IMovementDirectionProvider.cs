@@ -6,10 +6,10 @@ namespace Modules.Animals
     /// <summary>
     ///     Provides with the movement direction for the object
     /// </summary>
-    public interface IMovementDirectionProvider : IDisposable
+    public interface IMovementDirectionProvider : IInitializable<Transform>, IDisposable
     {
         Vector3 GetDirection();
 
-        void Initialize();
+        IMovementDirectionProvider SetCorrector(IMovementDirectionCorrector directionCorrector);
     }
 }

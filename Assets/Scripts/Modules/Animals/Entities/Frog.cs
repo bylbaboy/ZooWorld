@@ -20,9 +20,9 @@ namespace Modules.Animals.Entities
                 new IntervalBased2DMovementDirectionProvider(
                     new BoundedValuesProvider<float>(new Bounds<float>(45, 180), new RandomFloatPicker()),
                     new BoundedValuesProvider<int>(new Bounds<int>(1000, 4000), new RandomIntPicker())
-                ),
+                ).SetCorrector(new ReturnToAreaMovementDirectionCorrector(Vector3.zero, Constants.AREA_TO_RETURN)),
                 new BoundedValuesProvider<int>(new Bounds<int>(1500, 2500), new RandomIntPicker())
-            ).SetCorrector(new ReturnToAreaMovementCorrector(Vector3.zero, Constants.AREA_TO_RETURN))
+            )
         )
         {
         }
