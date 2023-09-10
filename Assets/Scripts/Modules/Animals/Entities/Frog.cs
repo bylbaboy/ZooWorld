@@ -1,7 +1,5 @@
-﻿using Common;
-using Common.Values;
+﻿using Common.Values;
 using Services;
-using UnityEngine;
 
 namespace Modules.Animals.Entities
 {

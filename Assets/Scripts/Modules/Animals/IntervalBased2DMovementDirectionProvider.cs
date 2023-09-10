@@ -32,7 +32,16 @@ namespace Modules.Animals
 
         public Vector3 GetDirection() =>
             _currentDirection;
-        
+
+        public void Initialize(Transform obj)
+        {
+            _random = new Random();
+            _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
+            _directionCorrector.Initialize(obj);
+
+            WaitForDirectionChange();
+        }
+
         public IMovementDirectionProvider SetCorrector(IMovementDirectionCorrector directionCorrector)
         {
             _directionCorrector = directionCorrector;
@@ -59,14 +68,5 @@ namespace Modules.Animals
             _waitingForDirectionChange = UniTaskAsyncEnumerable
                 .Timer(new TimeSpan(0, 0, 0, 0, _directionChangeTimeInterval.GetNext()))
                 .Subscribe(_ => ChangeDirection());
-
-        public void Initialize(Transform obj)
-        {
-            _random = new Random();
-            _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
-            _directionCorrector.Initialize(obj);
-
-            WaitForDirectionChange();
-        }
     }
 }

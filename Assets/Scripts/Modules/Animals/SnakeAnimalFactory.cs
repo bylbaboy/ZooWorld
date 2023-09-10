@@ -1,5 +1,4 @@
 ﻿using Modules.Animals.Entities;
-using Services;
 
 namespace Modules.Animals
 {

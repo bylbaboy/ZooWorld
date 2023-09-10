@@ -3,16 +3,15 @@
 namespace Modules.Animals
 {
     /// <summary>
-    /// Basic IAnimalFactory implementation
+    ///     Basic IAnimalFactory implementation
     /// </summary>
     public abstract class AnimalFactory : IAnimalFactory
     {
-        private IServices _services;
-        protected IServices Services => _services;
-        
-        public abstract IAnimal CreateNext();
+        protected IServices Services { get; private set; }
 
         public void Initialize(IServices services) =>
-            _services = services;
+            Services = services;
+
+        public abstract IAnimal CreateNext();
     }
 }
