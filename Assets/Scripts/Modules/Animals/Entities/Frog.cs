@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Values;
+using Services;
 using UnityEngine;
 
 namespace Modules.Animals.Entities
@@ -11,7 +12,7 @@ namespace Modules.Animals.Entities
     {
         private readonly MovingAnimal _baseAnimal;
 
-        public Frog() : base(
+        public Frog(IServices services) : base(
             "Frog",
             new ConstantValuesProvider<int>(0),
             new ResourcesPrefabProvider("Frog"),
@@ -20,7 +21,7 @@ namespace Modules.Animals.Entities
                 new IntervalBased2DMovementDirectionProvider(
                     new BoundedValuesProvider<float>(new Bounds<float>(45, 180), new RandomFloatPicker()),
                     new BoundedValuesProvider<int>(new Bounds<int>(1000, 4000), new RandomIntPicker())
-                ).SetCorrector(new ReturnToAreaMovementDirectionCorrector(Vector3.zero, Constants.AREA_TO_RETURN)),
+                ).SetCorrector(new ReturnToCameraViewDirectionCorrector(services.Get<ICameraService>())),
                 new BoundedValuesProvider<int>(new Bounds<int>(1500, 2500), new RandomIntPicker())
             )
         )

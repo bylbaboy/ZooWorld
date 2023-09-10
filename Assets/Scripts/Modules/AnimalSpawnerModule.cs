@@ -69,6 +69,8 @@ namespace Modules
 
         public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
         {
+            _animalFactory.Initialize(services);
+            
             Spawn();
 
             return Task.CompletedTask;

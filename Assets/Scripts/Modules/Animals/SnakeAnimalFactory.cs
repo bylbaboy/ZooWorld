@@ -1,13 +1,14 @@
 ﻿using Modules.Animals.Entities;
+using Services;
 
 namespace Modules.Animals
 {
     /// <summary>
     ///     Snake-only IAnimalFactory implementation
     /// </summary>
-    public sealed class SnakeAnimalFactory : IAnimalFactory
+    public sealed class SnakeAnimalFactory : AnimalFactory
     {
-        public IAnimal CreateNext() =>
-            new Snake();
+        public override IAnimal CreateNext() =>
+            new Snake(Services);
     }
 }

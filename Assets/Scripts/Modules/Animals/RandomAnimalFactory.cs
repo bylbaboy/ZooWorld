@@ -1,4 +1,5 @@
 ﻿using Modules.Animals.Entities;
+using Services;
 using Tools;
 
 namespace Modules.Animals
@@ -6,19 +7,19 @@ namespace Modules.Animals
     /// <summary>
     ///     Random values-based IAnimalFactory implementation
     /// </summary>
-    public sealed class RandomAnimalFactory : IAnimalFactory
+    public sealed class RandomAnimalFactory : AnimalFactory
     {
         private readonly WeightBasedRandom<IAnimal> _random;
 
         public RandomAnimalFactory()
         {
             _random = new WeightBasedRandom<IAnimal>(
-                (10, () => new Snake()),
-                (30, () => new Frog())
+                (10, () => new Snake(Services)),
+                (30, () => new Frog(Services))
             );
         }
 
-        public IAnimal CreateNext() =>
+        public override IAnimal CreateNext() =>
             _random.GetNext();
     }
 }
