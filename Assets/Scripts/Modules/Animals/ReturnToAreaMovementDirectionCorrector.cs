@@ -5,14 +5,14 @@ namespace Modules.Animals
     /// <summary>
     ///     Returning to the specified area IMovementCorrector implementation
     /// </summary>
-    public sealed class ReturnToAreaMovementCorrector : IMovementCorrector
+    public sealed class ReturnToAreaMovementDirectionCorrector : IMovementDirectionCorrector
     {
         private const int DIRECTION_DELTA = 10;
-        private Transform _objectToMove;
         private readonly Vector3 _areaCenter;
         private readonly float _areaRadius;
+        private Transform _objectToMove;
 
-        public ReturnToAreaMovementCorrector(Vector3 areaCenter, float areaRadius)
+        public ReturnToAreaMovementDirectionCorrector(Vector3 areaCenter, float areaRadius)
         {
             _areaCenter = areaCenter;
             _areaRadius = areaRadius;

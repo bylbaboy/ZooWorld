@@ -10,7 +10,6 @@ namespace Modules.Animals
         protected Transform ObjectToMove { get; private set; }
         protected ISpeedProvider SpeedProvider { get; }
         protected IMovementDirectionProvider DirectionProvider { get; }
-        protected IMovementCorrector MovementCorrector { get; private set; }
 
         protected MovementBehaviour(ISpeedProvider speedProvider, IMovementDirectionProvider directionProvider)
         {
@@ -30,16 +29,9 @@ namespace Modules.Animals
         {
             ObjectToMove = objectToMove;
             SpeedProvider.Initialize();
-            DirectionProvider.Initialize();
-            MovementCorrector.Initialize(objectToMove);
+            DirectionProvider.Initialize(objectToMove);
 
             OnInitialize();
-        }
-
-        public IMovementBehaviour SetCorrector(IMovementCorrector corrector)
-        {
-            MovementCorrector = corrector;
-            return this;
         }
 
         protected virtual void OnDispose()

@@ -21,8 +21,8 @@ namespace Modules
         private readonly IAnimalFactory _animalFactory;
         private readonly IValuesProvider<int> _intervalsProvider;
         private readonly IBounds<Vector2> _spawnArea;
-        private IDisposable _spawning;
         private readonly Transform _parentObject;
+        private IDisposable _spawning;
 
         public AnimalSpawnerModule(IAnimalFactory animalFactory, IValuesProvider<int> intervalsProvider,
             IBounds<Vector2> spawnArea)
@@ -69,6 +69,8 @@ namespace Modules
 
         public override Task Initialize(IServices services, CancellationTokenSource cancellationToken)
         {
+            _animalFactory.Initialize(services);
+
             Spawn();
 
             return Task.CompletedTask;

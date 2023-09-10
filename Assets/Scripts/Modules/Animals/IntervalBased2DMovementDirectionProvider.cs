@@ -13,6 +13,7 @@ namespace Modules.Animals
     {
         private readonly IValuesProvider<float> _directionChangeDeltaInDegrees;
         private readonly IValuesProvider<int> _directionChangeTimeInterval;
+        private IMovementDirectionCorrector _directionCorrector;
         private Vector3 _currentDirection;
         private IDisposable _waitingForDirectionChange;
         private Random _random;
@@ -32,12 +33,19 @@ namespace Modules.Animals
         public Vector3 GetDirection() =>
             _currentDirection;
 
-        public void Initialize()
+        public void Initialize(Transform obj)
         {
             _random = new Random();
             _currentDirection = Quaternion.Euler(0, _random.Next(0, 360), 0) * Vector3.forward;
+            _directionCorrector.Initialize(obj);
 
             WaitForDirectionChange();
+        }
+
+        public IMovementDirectionProvider SetCorrector(IMovementDirectionCorrector directionCorrector)
+        {
+            _directionCorrector = directionCorrector;
+            return this;
         }
 
         private void ChangeDirection()
@@ -49,7 +57,9 @@ namespace Modules.Animals
                 changeDelta *= -1;
             }
 
-            _currentDirection = Quaternion.Euler(0, changeDelta, 0) * _currentDirection;
+            var newDirection = Quaternion.Euler(0, changeDelta, 0) * _currentDirection;
+            var correctedDirection = _directionCorrector.Correct(newDirection);
+            _currentDirection = correctedDirection;
 
             WaitForDirectionChange();
         }

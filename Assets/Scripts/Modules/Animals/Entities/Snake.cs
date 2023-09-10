@@ -1,5 +1,5 @@
-﻿using Common;
-using Common.Values;
+﻿using Common.Values;
+using Services;
 using UnityEngine;
 
 namespace Modules.Animals.Entities
@@ -11,7 +11,7 @@ namespace Modules.Animals.Entities
     {
         private readonly MovingAnimal _baseAnimal;
 
-        public Snake() : base(
+        public Snake(IServices services) : base(
             "Snake",
             new ConstantValuesProvider<int>(Random.Range(3, 5)),
             new ResourcesPrefabProvider("Snake"),
@@ -20,8 +20,8 @@ namespace Modules.Animals.Entities
                 new IntervalBased2DMovementDirectionProvider(
                     new BoundedValuesProvider<float>(new Bounds<float>(30, 90), new RandomFloatPicker()),
                     new BoundedValuesProvider<int>(new Bounds<int>(500, 1000), new RandomIntPicker())
-                )
-            ).SetCorrector(new ReturnToAreaMovementCorrector(Vector3.zero, Constants.AREA_TO_RETURN))
+                ).SetCorrector(new ReturnToCameraViewDirectionCorrector(services.Get<ICameraService>()))
+            )
         )
         {
         }
